@@ -44,7 +44,7 @@ class PostsTest {
     @Test
     fun testUpdateNonexistentPost() {
         val nonExistentPost = Post(
-            id = 100,
+            id = 0,
             ownerId = 1,
             fromId = 1,
             date = System.currentTimeMillis(),
