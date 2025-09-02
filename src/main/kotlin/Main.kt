@@ -1,11 +1,12 @@
 package ru.netology
 
+// Класс для хранения информации о посте
 data class Post(
-    val id: Int ,
+    val id: Int = 1,
     val ownerId: Int = 0,
     val fromId: Int = 0,
     val createdBy: Int? = null,
-    val date: Long,
+    val date: Long = System.currentTimeMillis(),
     val text: String,
     val replyOwnerId: Int? = null,
     val replyPostId: Int? = null,
@@ -21,7 +22,7 @@ data class Post(
     val postponedId: Int? = null
 )
 
-// остальные классы остаются неизменёнными
+// Вспомогательные классы для комментариев, лайков и репостов
 data class Comments(
     val count: Int,
     val canPost: Boolean = false,
@@ -43,3 +44,19 @@ data class Reposts(
 )
 
 data class Views(val count: Int)
+
+// Основная точка входа в программу
+fun main() {
+    println("Привет, это программа для работы с записями.")
+
+    // Демонстрационная логика
+    val service = WallService
+    val newPost = Post(id = 0, text = "Первая запись", date = System.currentTimeMillis())
+    val addedPost = service.add(newPost)
+    println("Добавлена новая запись с идентификатором ${addedPost.id}")
+
+    // Обновим запись
+    val updatedPost = addedPost.copy(text = "Обновлённая запись")
+    val success = service.update(updatedPost)
+    println(if (success) "Запись успешно обновлена" else "Запись не найдена")
+}
