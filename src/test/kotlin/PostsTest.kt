@@ -39,22 +39,11 @@ class WallServiceTest {
 
     @Test
     fun testUpdateNonexistentPost() {
-<<<<<<< HEAD
         // Пробуем обновить несуществующий пост
         val fakePost = Post(id = 100, text = "Несуществующий текст")
         val result = WallService.update(fakePost)
 
         // Должно вернуться false
-=======
-        val nonExistentPost = Post(
-            id = 0,
-            ownerId = 1,
-            fromId = 1,
-            date = System.currentTimeMillis(),
-            text = "Some Text"
-        )
-        val result = WallService.update(nonExistentPost)
->>>>>>> f2922514832b1f39936034c70999fefb697ab8e3
         assertFalse(result)
     }
 }
