@@ -1,49 +1,56 @@
 package ru.netology
 
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import kotlin.test.*
 
-class WallServiceTest {
+class PostsTest {
 
     @BeforeEach
-    fun setup() {
+    fun setUp() {
         WallService.clear()
     }
 
     @Test
-    fun testAddPost() {
-        // Создаем новый пост с id = 0
-        val initialPost = Post(id = 0, text = "Новая запись")
+    fun testAddPostWithZeroID() {
+        val initialPost = Post(
+            id = 0,
+            ownerId = 1,
+            fromId = 1,
+            date = System.currentTimeMillis(),
+            text = "Hello World!"
+        )
         val addedPost = WallService.add(initialPost)
-
-        // Проверяем, что идентификатор поста изменился и стал положительным
-        assertNotEquals(0, addedPost.id)
+        assertNotNull(addedPost.id)
+        assertEquals(1, addedPost.id)
     }
 
     @Test
     fun testUpdateExistingPost() {
-        // Создаем первоначальный пост с id = 0
-        val initialPost = Post(id = 0, text = "Первоначальный текст")
-        val addedPost = WallService.add(initialPost)
+        val originalPost = Post(
+            id = 1,
+            ownerId = 1,
+            fromId = 1,
+            date = System.currentTimeMillis(),
+            text = "Original Text"
+        )
+        WallService.add(originalPost)
 
-        // Обновляем текст поста
-        val updatedPost = addedPost.copy(text = "Обновлённый текст")
-
-        // Обновляем пост
+        val updatedPost = originalPost.copy(text = "Updated Text")
         val result = WallService.update(updatedPost)
-
-        // Проверяем, что обновление прошло успешно
         assertTrue(result)
     }
 
     @Test
     fun testUpdateNonexistentPost() {
-        // Пробуем обновить несуществующий пост
-        val fakePost = Post(id = 100, text = "Несуществующий текст")
-        val result = WallService.update(fakePost)
-
-        // Должно вернуться false
+        val nonExistentPost = Post(
+            id = 100,
+            ownerId = 1,
+            fromId = 1,
+            date = System.currentTimeMillis(),
+            text = "Some Text"
+        )
+        val result = WallService.update(nonExistentPost)
         assertFalse(result)
     }
 }
