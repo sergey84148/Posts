@@ -5,7 +5,7 @@ data class Post(
     val ownerId: Int = 0,
     val fromId: Int = 0,
     val createdBy: Int? = null,
-    val date: Long,
+    val date: Int,
     val text: String,
     val replyOwnerId: Int? = null,
     val replyPostId: Int? = null,
