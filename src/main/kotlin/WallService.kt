@@ -1,31 +1,26 @@
 package ru.netology
 
 object WallService {
-    private var nextId = 1L
-    private val posts = mutableListOf<Post>()
+    private var posts = emptyArray<Post>()
+    private var nextId = 1
 
     fun add(post: Post): Post {
-        if (post.id == 0) {
-            val newPost = post.copy(id = nextId++.toInt())
-            posts.add(newPost)
-            return newPost
-        } else {
-            throw IllegalArgumentException("Пост уже имеет ID")
-        }
+        val newPost = post.copy(id = nextId++)
+        posts += newPost
+        return newPost
     }
 
-    fun update(updatedPost: Post): Boolean {
-        for ((index, existingPost) in posts.withIndex()) {
-            if (existingPost.id == updatedPost.id) {
-                posts[index] = updatedPost
-                return true
-            }
+    fun update(post: Post): Boolean {
+        val index = posts.indexOfFirst { it.id == post.id }
+        if (index != -1) {
+            posts[index] = post
+            return true
         }
         return false
     }
 
     fun clear() {
-        posts.clear()
-        nextId = 1L
+        posts = emptyArray()
+        nextId = 1
     }
 }
