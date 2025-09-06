@@ -1,17 +1,16 @@
 package ru.netology
 
-// Класс для хранения информации о посте
 data class Post(
     val id: Int = 1,
     val ownerId: Int = 0,
     val fromId: Int = 0,
-    val createdBy: Int? = null,
-    val date: Long = System.currentTimeMillis(),
+    val createdBy: Int? = null, // теперь nullable
+    val date: Int = 1633072800,
     val text: String,
     val replyOwnerId: Int? = null,
     val replyPostId: Int? = null,
     val friendsOnly: Boolean = false,
-    val copyright: String? = null,
+    val copyright: String? = null, // теперь nullable
     val postType: String = "post",
     val markedAsAds: Boolean = false,
     val isFavorite: Boolean = false,
@@ -19,10 +18,15 @@ data class Post(
     val canDelete: Boolean = false,
     val canEdit: Boolean = false,
     val signerId: Int? = null,
-    val postponedId: Int? = null
+    val postponedId: Int? = null,
+    val comments: Comments? = null, // добавляем nullable комментарий
+    val likes: Likes? = null,       // добавляем nullable лайки
+    val reposts: Reposts? = null,   // добавляем nullable репосты
+    val views: Views? = null,        // добавляем nullable просмотры
+    val attachments: List<Attachment>? = null // добавляем список вложений
 )
 
-// Вспомогательные классы для комментариев, лайков и репостов
+// остальные классы остаются неизменёнными
 data class Comments(
     val count: Int,
     val canPost: Boolean = false,
@@ -44,19 +48,3 @@ data class Reposts(
 )
 
 data class Views(val count: Int)
-
-// Основная точка входа в программу
-fun main() {
-    println("Привет, это программа для работы с записями.")
-
-    // Демонстрационная логика
-    val service = WallService
-    val newPost = Post(id = 0, text = "Первая запись", date = System.currentTimeMillis())
-    val addedPost = service.add(newPost)
-    println("Добавлена новая запись с идентификатором ${addedPost.id}")
-
-    // Обновим запись
-    val updatedPost = addedPost.copy(text = "Обновлённая запись")
-    val success = service.update(updatedPost)
-    println(if (success) "Запись успешно обновлена" else "Запись не найдена")
-}
