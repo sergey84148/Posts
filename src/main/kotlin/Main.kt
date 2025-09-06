@@ -4,13 +4,13 @@ data class Post(
     val id: Int = 1,
     val ownerId: Int = 0,
     val fromId: Int = 0,
-    val createdBy: Int? = null,
+    val createdBy: Int? = null, // теперь nullable
     val date: Int = 1633072800,
     val text: String,
     val replyOwnerId: Int? = null,
     val replyPostId: Int? = null,
     val friendsOnly: Boolean = false,
-    val copyright: String? = null,
+    val copyright: String? = null, // теперь nullable
     val postType: String = "post",
     val markedAsAds: Boolean = false,
     val isFavorite: Boolean = false,
@@ -18,7 +18,11 @@ data class Post(
     val canDelete: Boolean = false,
     val canEdit: Boolean = false,
     val signerId: Int? = null,
-    val postponedId: Int? = null
+    val postponedId: Int? = null,
+    val comments: Comments? = null, // добавляем nullable комментарий
+    val likes: Likes? = null,       // добавляем nullable лайки
+    val reposts: Reposts? = null,   // добавляем nullable репосты
+    val views: Views? = null        // добавляем nullable просмотры
 )
 
 // остальные классы остаются неизменёнными
